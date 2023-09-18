@@ -1,4 +1,4 @@
-{{define "rows"}} {{ if  and (eq .ContactsLength 0) .WasSearched }}
+{{define "rows"}} {{ if and (eq .ContactsLength 0) .WasSearched }}
 <tr>
     <td colspan="6" style="text-align: center">No Results</td>
 </tr>
@@ -12,7 +12,9 @@
     <td>{{ .Phone }}</td>
     <td>{{ .Email }}</td>
     <td>
-        <a href="/contacts/{{ .Id }}/edit">Edit</a>
+        <button hx-get="/modal?Id={{ .Id }}" hx-target="body" hx-swap="beforeend">
+            Edit
+        </button>
         <a href="/contacts/{{ .Id }}">View</a>
         <a
             href="#"

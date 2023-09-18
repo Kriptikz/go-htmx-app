@@ -665,6 +665,35 @@ func handleArchiveContacts(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func showModal(w http.ResponseWriter, r *http.Request) {
+	// Parse the query parameters from the request
+	id := r.URL.Query().Get("Id")
+	if id == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		fmt.Fprintf(w, "Id parameter is missing")
+		return
+	}
+
+	contact, err := getContactById(contactsList.Contacts, id)
+	if err != nil {
+		fmt.Println("Error when getting contact by ID", err)
+		w.WriteHeader(http.StatusNotFound)
+		return
+	}
+
+	newContact := NewContact{
+		Contact: contact,
+		Errors:  make(map[string]string),
+	}
+
+	err = templates["modal"].ExecuteTemplate(w, "modal.html", newContact)
+	if err != nil {
+		log.Println("Error when executing template", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+}
+
 func pong(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprintf(w, "pong")
@@ -678,6 +707,13 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/contacts", http.StatusMovedPermanently)
 	case r.URL.Path == "/ping":
 		pong(w, r)
+	case r.URL.Path == "/modal":
+		switch r.Method {
+		case http.MethodGet:
+			showModal(w, r)
+		default:
+			w.WriteHeader(http.StatusNotFound)
+		}
 	case r.URL.Path == "/contacts":
 		switch r.Method {
 		case http.MethodGet:
@@ -778,6 +814,10 @@ func initTemplates() (err error) {
 		return err
 	}
 	templates["contacts"], err = template.ParseFiles("layout.html", "index.html", "rows.html", "archive_ui.html")
+	if err != nil {
+		return err
+	}
+	templates["modal"], err = template.ParseFiles("modal.html")
 	if err != nil {
 		return err
 	}
