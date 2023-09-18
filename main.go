@@ -492,19 +492,21 @@ func deleteContacts(w http.ResponseWriter, r *http.Request) {
 
 	// Set up the data for the contacts template
 	data := struct {
-		Q              string
-		Contacts       []Contact
-		ContactsLength int
-		PreviousPage   int
-		NextPage       int
-		CurrentPage    int
+		Q               string
+		Contacts        []Contact
+		ContactsLength  int
+		PreviousPage    int
+		NextPage        int
+		CurrentPage     int
+		CurrentArchiver Archiver
 	}{
-		Q:              "",
-		Contacts:       contactsList.Contacts,
-		ContactsLength: len(contactsList.Contacts),
-		PreviousPage:   0,
-		NextPage:       0,
-		CurrentPage:    1,
+		Q:               "",
+		Contacts:        contactsList.Contacts,
+		ContactsLength:  len(contactsList.Contacts),
+		PreviousPage:    0,
+		NextPage:        0,
+		CurrentPage:     1,
+		CurrentArchiver: archiver,
 	}
 
 	// Execute the contacts template
