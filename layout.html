@@ -238,16 +238,5 @@
             </header>
             {{template "content" .}}
         </main>
-        <script>
-            document
-                .getElementById("search")
-                .addEventListener("input", function (e) {
-                    if (e.target.value === "") {
-                        e.target.setAttribute("hx-push-url", "true");
-                    } else {
-                        e.target.removeAttribute("hx-push-url");
-                    }
-                });
-        </script>
     </body>
 </html>

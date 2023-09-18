@@ -11,6 +11,7 @@
         hx-trigger="search, keyup delay:200ms changed"
         hx-target="tbody"
         hx-indicator="#spinner"
+        _="on input if me.value is '' then me.setAttribute('hx-push-url', 'true') else me.removeAttribute('hx-push-url')"
     />
     <img
         id="spinner"
