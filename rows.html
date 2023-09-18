@@ -1,4 +1,8 @@
-{{define "rows"}} {{ range .Contacts }}
+{{define "rows"}} {{ if eq .ContactsLength 0 }}
+<tr>
+    <td colspan="6" style="text-align: center">No Results</td>
+</tr>
+{{ else }} {{ range .Contacts }}
 <tr>
     <td>
         <input type="checkbox" name="selected_contact_ids" value="{{ .Id }}" />
@@ -38,4 +42,4 @@
         </span>
     </td>
 </tr>
-{{end}} {{end}}
+{{end}} {{end}} {{end}}
