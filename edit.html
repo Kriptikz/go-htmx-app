@@ -1,0 +1,57 @@
+{{define "content"}}
+<h1>Edit Contact</h1>
+<form action="/contacts/{{ .Id }}/edit" method="post">
+    <fieldset>
+        <legend>Contact Values</legend>
+        <p>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email"
+             hx-get="/contacts/{{ .Id }}/email"
+             hx-target="next .error"
+             hx-trigger="change, keyup delay:200ms changed"
+             value="{{ .Email }}" />
+            <span class="error">{{ index .Errors "Email" }}</span>
+        </p>
+        <p>
+            <label for="first_name">First Name</label>
+            <input
+                type="text"
+                id="first_name"
+                name="first_name"
+                value="{{ .First }}"
+            />
+            <span class="error">{{ index .Errors "First" }}</span>
+        </p>
+        <p>
+            <label for="last_name">Last Name</label>
+            <input
+                type="text"
+                id="last_name"
+                name="last_name"
+                value="{{ .Last }}"
+            />
+            <span class="error">{{ index .Errors "Last" }}</span>
+        </p>
+        <p>
+            <label for="phone">Phone</label>
+            <input type="text" id="phone" name="phone" value="{{ .Phone }}" />
+            <span class="error">{{ index .Errors "Phone" }}</span>
+        </p>
+        <button>Save</button>
+    </fieldset>
+</form>
+
+<button
+    id="delete-btn"
+    hx-delete="/contacts/{{ .Id }}"
+    hx-target="body"
+    hx-push-url="true"
+    hx-confirm="Are you sure you want to delete this contact?"
+>
+    Delete Contact
+</button>
+
+<p>
+    <a href="/contacts">Back</a>
+</p>
+{{end}}
