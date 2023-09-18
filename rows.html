@@ -1,7 +1,7 @@
 {{define "rows"}} {{ range .Contacts }}
 <tr>
     <td>
-      <input type="checkbox" name="selected_contact_ids" value="{{ .Id }}">
+        <input type="checkbox" name="selected_contact_ids" value="{{ .Id }}" />
     </td>
     <td>{{ .First }}</td>
     <td>{{ .Last }}</td>
@@ -29,7 +29,7 @@
     <td colspan="6" style="text-align: center">
         <span
             hx-target="closest tr"
-            hx-trigger="revealed"
+            hx-trigger="intersect once"
             hx-swap="outerHTML"
             hx-select="tbody > tr"
             hx-get="/contacts?page={{ .NextPage }}"

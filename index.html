@@ -1,5 +1,4 @@
-{{define "content"}}
-{{template "archive_ui" .CurrentArchiver}}
+{{define "content"}} {{template "archive_ui" .CurrentArchiver}}
 
 <form action="/contacts" method="get" class="tool-bar">
     <label for="search">Search Term</label>
@@ -25,27 +24,31 @@
     <input type="submit" value="Search" />
 </form>
 <form>
-    <table>
-        <thead>
-            <tr>
-                <th></th>
-                <th>First</th>
-                <th>Last</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>Other</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{template "rows" .}}
-        </tbody>
-    </table>
+    <div style="overflow: auto; height: 300px">
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>First</th>
+                    <th>Last</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Other</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{template "rows" .}}
+            </tbody>
+        </table>
+    </div>
     <button
-      style="margin-top: 10px"
-      hx-delete="/contacts"
-      hx-confirm="Are you sure you want to delete these contacts?"
-      hx-target="body"
-    >Delete Selected Contacts</button>
+        style="margin-top: 10px"
+        hx-delete="/contacts"
+        hx-confirm="Are you sure you want to delete these contacts?"
+        hx-target="body"
+    >
+        Delete Selected Contacts
+    </button>
 </form>
 <p>
     <a href="/contacts/new">Add Contact</a>
