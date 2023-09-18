@@ -1,4 +1,4 @@
-{{define "rows"}} {{ if eq .ContactsLength 0 }}
+{{define "rows"}} {{ if  and (eq .ContactsLength 0) .WasSearched }}
 <tr>
     <td colspan="6" style="text-align: center">No Results</td>
 </tr>

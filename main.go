@@ -573,10 +573,12 @@ func contacts(w http.ResponseWriter, r *http.Request) {
 			Contacts       []Contact
 			ContactsLength int
 			NextPage       int
+			WasSearched    bool
 		}{
 			Contacts:       pagedContacts,
 			ContactsLength: len(pagedContacts),
 			NextPage:       nextPage,
+			WasSearched:    true,
 		})
 	} else {
 		err = templates["contacts"].ExecuteTemplate(w, "layout.html", struct {
@@ -587,6 +589,7 @@ func contacts(w http.ResponseWriter, r *http.Request) {
 			NextPage        int
 			CurrentPage     int
 			CurrentArchiver Archiver
+			WasSearched     bool
 		}{
 			Q:               searchQuery,
 			Contacts:        pagedContacts,
@@ -595,6 +598,7 @@ func contacts(w http.ResponseWriter, r *http.Request) {
 			NextPage:        nextPage,
 			CurrentPage:     page,
 			CurrentArchiver: archiver,
+			WasSearched:     false,
 		})
 	}
 
