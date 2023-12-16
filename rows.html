@@ -12,7 +12,11 @@
     <td>{{ .Phone }}</td>
     <td>{{ .Email }}</td>
     <td>
-        <button hx-get="/modal?Id={{ .Id }}" hx-target="body" hx-swap="beforeend">
+        <button
+            hx-get="/modal?Id={{ .Id }}"
+            hx-target="body"
+            hx-swap="beforeend"
+        >
             Edit
         </button>
         <a href="/contacts/{{ .Id }}">View</a>
